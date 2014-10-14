@@ -2,6 +2,7 @@ var colorChanger = {};
 
 colorChanger.hues = ['red', 'orange', 'yellow', 'green', 'blue', 'violet'];
 colorChanger.currentHue = 0;
+colorChanger.delay = 4000;
 
 colorChanger.getNextHue = function(){
   // Figure out what color we're on.
@@ -67,7 +68,7 @@ $(document).ready(function() {
   // Set up the automatic background shift.
   var cycle = window.setInterval(function(){
     colorChanger.getBackground(colorChanger.hues[colorChanger.getNextHue()]);
-  },4000);
+  },colorChanger.delay);
   var cycling = true;
   $('.pause').addClass("fa-play");
   $(document).on('click', '.circle', function(){
@@ -78,7 +79,7 @@ $(document).ready(function() {
     } else {
       cycle = window.setInterval(function(){
         colorChanger.getBackground(colorChanger.hues[colorChanger.getNextHue()]);
-      },10000);
+      },colorChanger.delay);
       $('.pause').removeClass("fa-pause").addClass("fa-play");
       cycling = true;
     }
