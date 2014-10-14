@@ -9,6 +9,15 @@ body {
   font-weight: 400;
 }
 
+.container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
 .info {
   width: 60%;
   height: 60%;
@@ -64,29 +73,8 @@ h2 a:link, .info h2 a:visited, .info h2 a:hover, .info h2 a:active {
   right: 0;
   top: 0;
   bottom: 0;
-  transition: opacity 1s ease-in-out;
-  opacity: 0;
-  z-index: -1;
   background-color: black;
 }
-
-.alternate {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  transition: opacity 1s ease-in-out;
-  opacity: 0;
-  z-index: -1;
-  background-color: gray;
-}
-
-.show {
-  z-index: 1;
-  opacity: 1;
-}
-
 
 .circle {
   border-radius: 50%;
@@ -98,9 +86,7 @@ h2 a:link, .info h2 a:visited, .info h2 a:hover, .info h2 a:active {
   height: 5em;
   text-align: center;
   transition: transform .2s ease-in-out, background-color .2s ease-in-out;
-  
   box-shadow: 1px 1px 1px #444;
-  
 }
 
 .circle:hover {
@@ -153,4 +139,23 @@ li .dark {
 .copyright {
   clear: both;
   margin-top: 3em;
+}
+
+@media only screen and (max-width: 960px) {
+  .info {
+    width: 100%;
+  }
+  .circle {
+    top: calc(50% - 2.5em);
+    right: 1em;
+  }
+  .colors li {
+    position: relative;
+    width: calc((100% - 8em) / 5);
+  }
+  .colors li:before {
+    content: "";
+    display: block;
+    padding-top: 100%;
+  }
 }
