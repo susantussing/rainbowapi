@@ -10,7 +10,7 @@ colorChanger.getNextHue = function(){
   if (this.currentHue >= this.hues.length) {
     this.currentHue = 0;
   }
-  return this.currentHue;
+  return this.hues[this.currentHue];
 };
 
 colorChanger.doNext = function() {
@@ -65,11 +65,11 @@ colorChanger.callAPI = function(color) {
 
 $(document).ready(function() {
   // Initial call to the API.
-  colorChanger.callAPI(colorChanger.hues[0]);
+  colorChanger.callAPI(colorChanger.getNextHue());
 
   // Set up the automatic background shift.
   var cycle = window.setInterval(function(){
-    colorChanger.callAPI(colorChanger.hues[colorChanger.getNextHue()]);
+    colorChanger.callAPI(colorChanger.getNextHue());
   },colorChanger.delay);
   var cycling = true;
   $('.pause').addClass("fa-play");
@@ -80,7 +80,7 @@ $(document).ready(function() {
       cycling = false;
     } else {
       cycle = window.setInterval(function(){
-        colorChanger.callAPI(colorChanger.hues[colorChanger.getNextHue()]);
+        colorChanger.callAPI(colorChanger.getNextHue());
       },colorChanger.delay);
       $('.pause').removeClass("fa-pause").addClass("fa-play");
       cycling = true;
