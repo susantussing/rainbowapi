@@ -20,6 +20,8 @@ colorChanger.doNext = function() {
   $('.title').text(result.title);
   $('.title').attr('href', result.url);
   $('.creator').text(result.userName + "'s ");
+
+  // Create the color palette.
   var colors = $.map(_.uniq(result.colors),function(val, i){
     var color = '#' + val;
     var light = '<p class="light">' + color + "</p>";
@@ -31,7 +33,7 @@ colorChanger.doNext = function() {
   // this.isMain ^= true;
 };
 
-colorChanger.getBackground = function(color) {
+colorChanger.callAPI = function(color) {
   // Get a pattern from the ColourLovers.com API.
   var random = Math.floor((Math.random() * 25) + 1);
   $.ajax('http://www.colourlovers.com/api/patterns?jsonCallback=callback',{
@@ -53,7 +55,7 @@ colorChanger.getBackground = function(color) {
       colorChanger.doNext();
     },
     error: function(XHR, textStatus, errorThrown) {
-        console.log(  "error: " + textStatus);
+        console.log("error: " + textStatus);
         console.log("error: " + errorThrown);
     },
     timeout: 3000
@@ -63,11 +65,11 @@ colorChanger.getBackground = function(color) {
 
 $(document).ready(function() {
   // Initial call to the API.
-  colorChanger.getBackground(colorChanger.hues[0]);
+  colorChanger.callAPI(colorChanger.hues[0]);
 
   // Set up the automatic background shift.
   var cycle = window.setInterval(function(){
-    colorChanger.getBackground(colorChanger.hues[colorChanger.getNextHue()]);
+    colorChanger.callAPI(colorChanger.hues[colorChanger.getNextHue()]);
   },colorChanger.delay);
   var cycling = true;
   $('.pause').addClass("fa-play");
@@ -78,7 +80,7 @@ $(document).ready(function() {
       cycling = false;
     } else {
       cycle = window.setInterval(function(){
-        colorChanger.getBackground(colorChanger.hues[colorChanger.getNextHue()]);
+        colorChanger.callAPI(colorChanger.hues[colorChanger.getNextHue()]);
       },colorChanger.delay);
       $('.pause').removeClass("fa-pause").addClass("fa-play");
       cycling = true;
