@@ -2,7 +2,7 @@ var colorChanger = {};
 
 colorChanger.hues = ['red', 'orange', 'yellow', 'green', 'blue', 'violet'];
 colorChanger.currentHue = 0;
-colorChanger.delay = 4000;
+colorChanger.delay = 8000;
 
 colorChanger.getNextHue = function(){
   // Figure out what color we're on.
@@ -16,7 +16,18 @@ colorChanger.getNextHue = function(){
 colorChanger.doNext = function() {
   // Change to the next background.
   var result = this.thisResult;
-  $('.main').css('background-image','url('+result.imageUrl+'),url('+this.nextResult.imageUrl+')');
+
+  // Fade in the new background.
+  $('.main').css('background-image','url('+result.imageUrl+')');
+  $('.main').fadeIn('slow');
+  
+  // Set up the next background.
+  window.setTimeout(function(){
+    $('body').css('background-image','url('+result.imageUrl+')');
+    $('.main').hide();
+    $('.main').css('background-image','url('+this.nextResult.imageUrl+')');
+  },this.delay / 2);
+
   $('.title').text(result.title);
   $('.title').attr('href', result.url);
   $('.creator').text(result.userName + "'s ");
