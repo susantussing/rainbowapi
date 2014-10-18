@@ -1,7 +1,6 @@
 var colorChanger = {};
 
 colorChanger.hues = ['red', 'orange', 'yellow', 'green', 'blue', 'violet'];
-colorChanger.currentHue = 0;
 colorChanger.delay = 8000;
 
 colorChanger.getNextHue = function(){
@@ -39,12 +38,14 @@ colorChanger.doNext = function() {
     return $('<li>').css('background-color',color).html(light+dark);
   });
   $('.colors').html(colors);
-  // this.isMain ^= true;
 };
 
-colorChanger.callAPI = function(color) {
+colorChanger.callAPI = function() {
   // Get a pattern from the ColourLovers.com API.
+  // Pick a random number from 1-25, so we'll always get a top-25 result.
   var random = Math.floor((Math.random() * 25) + 1);
+  var color = this.getNextHue();
+
   $.ajax('http://www.colourlovers.com/api/patterns?jsonCallback=callback',{
     data: {
       hueOption: color,
@@ -74,24 +75,24 @@ colorChanger.callAPI = function(color) {
 
 $(document).ready(function() {
   // Initial call to the API.
-  colorChanger.callAPI(colorChanger.getNextHue());
+  colorChanger.callAPI();
 
   // Set up the automatic background shift.
   var cycle = window.setInterval(function(){
-    colorChanger.callAPI(colorChanger.getNextHue());
+    colorChanger.callAPI();
   },colorChanger.delay);
   var cycling = true;
-  $('.pause').addClass("fa-play");
+  $('.pause').addClass("fa-pause");
   $(document).on('click', '.circle', function(){
     if (cycling) {
       window.clearInterval(cycle);
-      $('.pause').removeClass("fa-play").addClass("fa-pause");
+      $('.pause').removeClass("fa-pause").addClass("fa-play");
       cycling = false;
     } else {
       cycle = window.setInterval(function(){
-        colorChanger.callAPI(colorChanger.getNextHue());
+        colorChanger.callAPI();
       },colorChanger.delay);
-      $('.pause').removeClass("fa-pause").addClass("fa-play");
+      $('.pause').removeClass("fa-play").addClass("fa-pause");
       cycling = true;
     }
   });
