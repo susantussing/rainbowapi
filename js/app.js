@@ -5,12 +5,9 @@ colorChanger.currentHue = 0;
 colorChanger.delay = 8000;
 
 colorChanger.getNextHue = function(){
-  // Figure out what color we're on.
-  this.currentHue++;
-  if (this.currentHue >= this.hues.length) {
-    this.currentHue = 0;
-  }
-  return this.hues[this.currentHue];
+  // Switch to the next hue in the list.
+  this.hues.push(this.hues.shift());
+  return this.hues[0];
 };
 
 colorChanger.doNext = function() {
@@ -31,6 +28,7 @@ colorChanger.doNext = function() {
   $('.title').text(result.title);
   $('.title').attr('href', result.url);
   $('.creator').text(result.userName + "'s ");
+  $('.current-hue').text(this.hues[0]);
 
   // Create the color palette.
   var colors = $.map(_.uniq(result.colors),function(val, i){
