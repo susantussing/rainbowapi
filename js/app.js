@@ -27,7 +27,7 @@ colorChanger.doNext = function() {
   $('.title').text(result.title);
   $('.title').attr('href', result.url);
   $('.creator').text(result.userName + "'s ");
-  $('.current-hue').text(this.hues[0]);
+  $('.current-hue').text(colorChanger.hues[colorChanger.hues.length -1]);
 
   // Create the color palette.
   var colors = $.map(_.uniq(result.colors),function(val, i){
