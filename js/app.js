@@ -21,7 +21,7 @@ colorChanger.doNext = function() {
   window.setTimeout(function(){
     $('body').css('background-image','url('+result.imageUrl+')');
     $('.main').hide();
-    $('.main').css('background-image','url('+this.nextResult.imageUrl+')');
+    $('.main').css('background-image','url('+colorChanger.nextResult.imageUrl+')');
   },this.delay / 2);
 
   $('.title').text(result.title);
@@ -74,6 +74,7 @@ colorChanger.callAPI = function() {
 
 
 $(document).ready(function() {
+
   // Initial call to the API.
   colorChanger.callAPI();
 
