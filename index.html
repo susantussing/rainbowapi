@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name=viewport content="width=device-width, initial-scale=1, user-scalable=no">
   <title>Color API Test</title>
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/reset.css">
@@ -11,16 +12,21 @@
   <script src="js/app.js"></script>
 </head>
 <body>
-  <div class="main">
-  </div>
-  <div class="info">
-  <div class="circle"><i class="fa pause"></i></div>
-    <h1>A Rainbow Connection</h1>
-    <p>Using the ColourLovers.com API, this app sets the background to one of the top 25 patterns containing a given color, and cycles through the rainbow as time passes.  Some patterns may have been miscategorized on the site.  The current color is: <span class="current-hue">nothing</span>.</p>
-    <h2><span class="creator">Nobody's</span> <a class="title" href="#">Nothing</a></h2> 
-    <h3>Colors:</h3>
-    <ul class="colors"></ul>
-    <p class="copyright">This app is copyright 2014.</p>
+  <div class="container">
+    <div class="main">
+    </div>
+    <div class="info">
+    <div class="circle"><i class="fa pause"></i></div>
+      <h1>A Rainbow Connection</h1>
+      <div class="explanation">
+        <p>Using the ColourLovers.com API, this app sets the background to one of the top 25 patterns containing a given color, and cycles through the rainbow as time passes.</p> 
+        <p>The current color is: <span class="current-hue">nothing</span>.</p>
+      </div>
+      <h2><span class="creator">Nobody's</span> <a class="title" href="#" target="_blank">Nothing</a></h2> 
+      <h3>Colors:</h3>
+      <ul class="colors clearfix"></ul>
+      <p class="copyright">Written in October 2014 for Thinkful FEWD course by Susan Tussing.</p>
+    </div>
   </div>
 </body>
 </html>

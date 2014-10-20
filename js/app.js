@@ -9,17 +9,17 @@ colorChanger.getNextHue = function(){
   return this.hues[0];
 };
 
-colorChanger.doNext = function() {
+colorChanger.doNext = function(color) {
   // Change to the next background.
   var result = this.thisResult;
 
   // Fade in the new background.
   $('.main').css('background-image','url('+result.imageUrl+')');
-  $('.main').fadeIn('slow');
+  $('.main').hide().fadeIn(1000);
   
   // Set up the next background.
   window.setTimeout(function(){
-    $('body').css('background-image','url('+result.imageUrl+')');
+    $('.container').css('background-image','url('+result.imageUrl+')');
     $('.main').hide();
     $('.main').css('background-image','url('+colorChanger.nextResult.imageUrl+')');
   },this.delay / 2);
@@ -27,7 +27,7 @@ colorChanger.doNext = function() {
   $('.title').text(result.title);
   $('.title').attr('href', result.url);
   $('.creator').text(result.userName + "'s ");
-  $('.current-hue').text(colorChanger.hues[colorChanger.hues.length -1]);
+  $('.current-hue').text(this.lastHue || color);
 
   // Create the color palette.
   var colors = $.map(_.uniq(result.colors),function(val, i){
@@ -38,6 +38,8 @@ colorChanger.doNext = function() {
     return $('<li>').css('background-color',color).html(light+dark);
   });
   $('.colors').html(colors);
+
+  this.lastHue = color;
 };
 
 colorChanger.callAPI = function() {
@@ -62,7 +64,7 @@ colorChanger.callAPI = function() {
       // On the first call, go ahead and set it; the first will be up twice as long but that's fine.
       colorChanger.thisResult = colorChanger.nextResult || result[0];
       colorChanger.nextResult = result[0];
-      colorChanger.doNext();
+      colorChanger.doNext(color);
     },
     error: function(XHR, textStatus, errorThrown) {
         console.log("error: " + textStatus);
