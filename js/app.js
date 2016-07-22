@@ -1,7 +1,7 @@
 var colorChanger = {};
 
 colorChanger.hues = ['red', 'orange', 'yellow', 'green', 'blue', 'violet'];
-colorChanger.delay = 8000;
+colorChanger.delay = 5000;
 
 colorChanger.getNextHue = function(){
   // Switch to the next hue in the list.
@@ -15,7 +15,7 @@ colorChanger.doNext = function(color) {
 
   // Fade in the new background.
   $('.main').css('background-image','url('+result.imageUrl+')');
-  $('.main').hide().fadeIn(1000);
+  $('.main').hide().fadeIn(500,"easeInQuad");
   
   // Set up the next background.
   window.setTimeout(function(){
@@ -99,4 +99,6 @@ $(document).ready(function() {
       cycling = true;
     }
   });
+
+
 });
